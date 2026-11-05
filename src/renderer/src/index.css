@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Global resets / base
+───────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    font-family: theme('fontFamily.sans');
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(99, 102, 241, 0.08), transparent 60%),
+      radial-gradient(900px 500px at 110% 110%, rgba(139, 92, 246, 0.06), transparent 60%),
+      linear-gradient(180deg, #0a0a0f 0%, #0d0d14 100%);
+    color: theme('colors.text.primary');
+    user-select: none;
+    cursor: default;
+  }
+
+  /* Allow text selection in editable / readable areas */
+  textarea,
+  input,
+  [contenteditable='true'],
+  .selectable,
+  .selectable * {
+    user-select: text;
+  }
+
+  *:focus-visible {
+    outline: 2px solid theme('colors.accent.400');
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  /* Scrollbars — minimal, accent on hover */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(129, 140, 248, 0.35);
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Reusable components
+───────────────────────────────────────────────────────────────────────────── */
+@layer components {
+  .glass {
+    background: rgba(22, 22, 31, 0.72);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid theme('colors.border.subtle');
+  }
+
+  .ring-focus {
+    @apply focus:outline-none focus:ring-2 focus:ring-accent-400/60 focus:ring-offset-0;
+  }
+
+  .drag-region {
+    -webkit-app-region: drag;
+  }
+  .no-drag {
+    -webkit-app-region: no-drag;
+  }
+
+  /* Markdown content — restrained, premium */
+  .markdown {
+    @apply text-text-primary leading-relaxed;
+  }
+  .markdown h1 {
+    @apply text-2xl font-semibold mt-6 mb-3 tracking-tight;
+  }
+  .markdown h2 {
+    @apply text-xl font-semibold mt-6 mb-2 tracking-tight text-text-primary;
+  }
+  .markdown h3 {
+    @apply text-lg font-semibold mt-5 mb-2 text-text-primary;
+  }
+  .markdown p {
+    @apply my-3 text-text-secondary;
+  }
+  .markdown ul {
+    @apply list-disc pl-6 my-3 space-y-1 text-text-secondary;
+  }
+  .markdown ol {
+    @apply list-decimal pl-6 my-3 space-y-1 text-text-secondary;
+  }
+  .markdown a {
+    @apply text-accent-400 underline-offset-2 hover:underline;
+  }
+  .markdown blockquote {
+    @apply border-l-2 border-accent-500/60 pl-4 my-3 italic text-text-secondary;
+  }
+  .markdown code:not(pre code) {
+    @apply px-1.5 py-0.5 rounded bg-bg-elevated text-accent-200 font-mono text-[0.85em];
+  }
+  .markdown strong {
+    @apply text-text-primary font-semibold;
+  }
+  .markdown hr {
+    @apply my-6 border-border-subtle;
+  }
+
+  /* Code blocks rendered by our CodeBlock component carry their own chrome */
+  .markdown pre {
+    @apply my-4;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Utilities
+───────────────────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent);
+    mask-image: linear-gradient(180deg, #000 70%, transparent);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
